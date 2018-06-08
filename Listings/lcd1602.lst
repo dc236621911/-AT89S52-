@@ -1,4 +1,4 @@
-C51 COMPILER V9.57.0.0   LCD1602                                                           06/06/2018 20:32:35 PAGE 1   
+C51 COMPILER V9.57.0.0   LCD1602                                                           06/08/2018 22:08:07 PAGE 1   
 
 
 C51 COMPILER V9.57.0.0, COMPILATION OF MODULE LCD1602
@@ -27,7 +27,7 @@ line level    source
   17          
   18          /************************************ÎÂ¶ÈÏÔÊ¾*************************************/
   19          float upper_t = 40.0;//Ä¬ÈÏÎÂ¶ÈÉÏÏÞ
-  20          float lower_t = 20.0;//Ä¬ÈÏÎÂ¶ÈÏÂÏÞ
+  20          float lower_t = 15.0;//Ä¬ÈÏÎÂ¶ÈÏÂÏÞ
   21          float current_t = 0;//µ±Ç°ÎÂ¶È
   22          
   23          void Display_c(unsigned char Y);//ÏÔÊ¾ÎÂ¶Èµ¥Î»
@@ -62,7 +62,7 @@ line level    source
   52          void Delay400Ms(void);
   53          /* Èí¼þÑÓÊ±º¯Êý£¬ÑÓÊ±Ê±¼ä(t*10)us */
   54          void DelayX10us(unsigned char t);
-C51 COMPILER V9.57.0.0   LCD1602                                                           06/06/2018 20:32:35 PAGE 2   
+C51 COMPILER V9.57.0.0   LCD1602                                                           06/08/2018 22:08:07 PAGE 2   
 
   55          /************************************¹«¹²ÑÓÊ±³ÌÐò*************************************/
   56          
@@ -76,578 +76,579 @@ line level    source
   64   1        EA = 0;//¹Ø×ÜÖÐ¶Ï
   65   1        F = 1;
   66   1        LED = 1;
-  67   1        Delay400Ms(); //Æô¶¯µÈ´ý£¬µÈLCD½²Èë¹¤×÷×´Ì¬
-  68   1        LCDInit(); //LCM³õÊ¼»¯
-  69   1        Delay5Ms(); //ÑÓÊ±Æ¬¿Ì(¿É²»Òª)
-  70   1        Init_DS18B20();   //1820³õÊ¼»¯
-  71   1        while(1){
-  72   2          keyboard();
-  73   2          if(!OK){
-  74   3            ReadTemperature();//¶ÁÈ¡ÎÂ¶ÈÖµ
-  75   3            if(fg){
-  76   4              DisplayListChar(0, 0, "Curre Tem:");//ÏÔÊ¾µ±Ç°ÎÂ¶È
-  77   4              Display_float(10,1,current_t);//ÏÔÊ¾µ±Ç°ÎÂ¶È
-  78   4              Display_c(1);//ÏÔÊ¾ÎÂ¶Èµ¥Î»
-  79   4            }else{//¸ºÎÂ¶ÈÏÔÊ¾
-  80   4              DisplayListChar(0, 0, "Curre Tem:");//ÏÔÊ¾µ±Ç°ÎÂ¶È
-  81   4              Display_float(10,1,current_t);//ÏÔÊ¾µ±Ç°ÎÂ¶È
-  82   4              Display_c(1);//ÏÔÊ¾ÎÂ¶Èµ¥Î»
-  83   4              DisplayOneChar(9, 1, '-');//ÏÔÊ¾µ±Ç°ÎÂ¶È
-  84   4            }
-  85   3            
-  86   3            if(current_t<lower_t)//ÎÂ¶ÈµÍÓÚÉè¶¨ÎÂ¶ÈÏÂÏÞ
-  87   3            {
-  88   4              while(current_t<lower_t){
-  89   5                F = 0;
-  90   5                LED = 0;
-  91   5                Delay400Ms();
+  67   1        DQ=1; 
+  68   1        Delay400Ms(); //Æô¶¯µÈ´ý£¬µÈLCD½²Èë¹¤×÷×´Ì¬
+  69   1        LCDInit(); //LCM³õÊ¼»¯
+  70   1        Delay5Ms(); //ÑÓÊ±Æ¬¿Ì(¿É²»Òª)
+  71   1        Init_DS18B20();   //1820³õÊ¼»¯
+  72   1        while(1){
+  73   2          keyboard();
+  74   2          if(!OK){
+  75   3            ReadTemperature();//¶ÁÈ¡ÎÂ¶ÈÖµ
+  76   3            if(fg){
+  77   4              DisplayListChar(0, 0, "Curre Tem:");//ÏÔÊ¾µ±Ç°ÎÂ¶È
+  78   4              Display_float(10,1,current_t);//ÏÔÊ¾µ±Ç°ÎÂ¶È
+  79   4              Display_c(1);//ÏÔÊ¾ÎÂ¶Èµ¥Î»
+  80   4            }else{//¸ºÎÂ¶ÈÏÔÊ¾
+  81   4              DisplayListChar(0, 0, "Curre Tem:");//ÏÔÊ¾µ±Ç°ÎÂ¶È
+  82   4              Display_float(10,1,current_t);//ÏÔÊ¾µ±Ç°ÎÂ¶È
+  83   4              Display_c(1);//ÏÔÊ¾ÎÂ¶Èµ¥Î»
+  84   4              DisplayOneChar(9, 1, '-');//ÏÔÊ¾µ±Ç°ÎÂ¶È
+  85   4            }
+  86   3            
+  87   3            if(current_t<lower_t)//ÎÂ¶ÈµÍÓÚÉè¶¨ÎÂ¶ÈÏÂÏÞ
+  88   3            {
+  89   4              while(1){
+  90   5                F = 0;
+  91   5                LED = 0;
   92   5                Delay400Ms();
   93   5                Delay400Ms();
   94   5                F = 1;
   95   5                LED = 1;
   96   5                Delay400Ms();
   97   5                Delay400Ms();
-  98   5                Delay400Ms();
-  99   5                ReadTemperature();//¶ÁÈ¡ÎÂ¶ÈÖµ
- 100   5                Display_float(10,1,current_t);//ÏÔÊ¾µ±Ç°ÎÂ¶È
- 101   5                Display_c(1);//ÏÔÊ¾ÎÂ¶Èµ¥Î»
- 102   5              }
- 103   4            }else if(current_t > upper_t){//¸ßÓÚÎÂ¶ÈÉÏÏÞ
- 104   4              while(current_t > upper_t){
- 105   5                F = 0;
- 106   5                LED = 0;
- 107   5                Delay400Ms();
+  98   5                ReadTemperature();//¶ÁÈ¡ÎÂ¶ÈÖµ
+  99   5                Display_float(10,1,current_t);//ÏÔÊ¾µ±Ç°ÎÂ¶È
+ 100   5                Display_c(1);//ÏÔÊ¾ÎÂ¶Èµ¥Î»
+ 101   5                if(current_t<lower_t)
+ 102   5                  break;
+ 103   5              }
+ 104   4            }else if(current_t > upper_t){//¸ßÓÚÎÂ¶ÈÉÏÏÞ
+ 105   4              while(1){
+ 106   5                F = 0;
+ 107   5                LED = 0;
  108   5                Delay400Ms();
  109   5                Delay400Ms();
  110   5                Delay400Ms();
  111   5                Delay400Ms();
- 112   5                F = 1;
- 113   5                LED = 1;
- 114   5                Delay400Ms();
+ 112   5                Delay400Ms();
+ 113   5                F = 1;
+ 114   5                LED = 1;
  115   5                Delay400Ms();
  116   5                Delay400Ms();
-C51 COMPILER V9.57.0.0   LCD1602                                                           06/06/2018 20:32:35 PAGE 3   
+C51 COMPILER V9.57.0.0   LCD1602                                                           06/08/2018 22:08:07 PAGE 3   
 
  117   5                Delay400Ms();
  118   5                Delay400Ms();
- 119   5                ReadTemperature();//¶ÁÈ¡ÎÂ¶ÈÖµ
- 120   5                Display_float(10,1,current_t);//ÏÔÊ¾µ±Ç°ÎÂ¶È
- 121   5                Display_c(1);//ÏÔÊ¾ÎÂ¶Èµ¥Î»
- 122   5              }
- 123   4            }else{
- 124   4              Delay400Ms();
- 125   4              Delay400Ms();
- 126   4              Delay400Ms();
- 127   4            }
- 128   3          }
- 129   2        }
- 130   1      }
- 131          /*-------------------------------------Ö÷³ÌÐò---------------------------------------*/
- 132          /************************************LCD1602ÏÔÊ¾Ä£¿é´úÂë*************************************/
- 133          void WriteDataLCD(unsigned char WDLCD)//Ð´Êý¾Ý
- 134          {
- 135   1       ReadStatusLCD(); //¼ì²âÃ¦
- 136   1       LCD_Data = WDLCD;
- 137   1       LCD_RS = 1;
- 138   1       LCD_RW = 0;
- 139   1       LCD_E = 0; //Èô¾§ÕñËÙ¶ÈÌ«¸ß¿ÉÒÔÔÚÕâºó¼ÓÐ¡µÄÑÓÊ±
- 140   1       LCD_E = 0; //ÑÓÊ±
- 141   1       LCD_E = 1;
- 142   1      }
- 143          void WriteCommandLCD(unsigned char WCLCD,BuysC) //Ð´Ö¸Áî//BuysCÎª0Ê±ºöÂÔÃ¦¼ì²â
- 144          {
- 145   1       if (BuysC) ReadStatusLCD(); //¸ù¾ÝÐèÒª¼ì²âÃ¦
- 146   1       LCD_Data = WCLCD;
- 147   1       LCD_RS = 0;
- 148   1       LCD_RW = 0; 
- 149   1       LCD_E = 0;
- 150   1       LCD_E = 0;
- 151   1       LCD_E = 1; 
- 152   1      }
- 153          unsigned char ReadStatusLCD(void)//¶Á×´Ì¬
- 154          {
- 155   1       LCD_Data = 0xFF; 
- 156   1       LCD_RS = 0;
- 157   1       LCD_RW = 1;
- 158   1       LCD_E = 0;
- 159   1       LCD_E = 0;
- 160   1       LCD_E = 1;
- 161   1       while (LCD_Data & Busy); //¼ì²âÃ¦ÐÅºÅ
- 162   1       return(LCD_Data);
- 163   1      }
- 164          void LCDInit(void) //LCM³õÊ¼»¯
- 165          {
- 166   1       LCD_Data = 0;
- 167   1       WriteCommandLCD(0x38,0); //Èý´ÎÏÔÊ¾Ä£Ê½ÉèÖÃ£¬²»¼ì²âÃ¦ÐÅºÅ
- 168   1       Delay5Ms(); 
- 169   1       WriteCommandLCD(0x38,0);
- 170   1       Delay5Ms(); 
- 171   1       WriteCommandLCD(0x38,0);
- 172   1       Delay5Ms(); 
- 173   1      
- 174   1       WriteCommandLCD(0x38,1); //ÏÔÊ¾Ä£Ê½ÉèÖÃ,¿ªÊ¼ÒªÇóÃ¿´Î¼ì²âÃ¦ÐÅºÅ
- 175   1       WriteCommandLCD(0x08,1); //¹Ø±ÕÏÔÊ¾
- 176   1       WriteCommandLCD(0x01,1); //ÏÔÊ¾ÇåÆÁ
- 177   1       WriteCommandLCD(0x06,1); // ÏÔÊ¾¹â±êÒÆ¶¯ÉèÖÃ
- 178   1       WriteCommandLCD(0x0C,1); // ÏÔÊ¾¿ª¼°¹â±êÉèÖÃ
-C51 COMPILER V9.57.0.0   LCD1602                                                           06/06/2018 20:32:35 PAGE 4   
+ 119   5                Delay400Ms();
+ 120   5                ReadTemperature();//¶ÁÈ¡ÎÂ¶ÈÖµ
+ 121   5                Display_float(10,1,current_t);//ÏÔÊ¾µ±Ç°ÎÂ¶È
+ 122   5                Display_c(1);//ÏÔÊ¾ÎÂ¶Èµ¥Î»
+ 123   5                if(current_t > upper_t)
+ 124   5                  break;
+ 125   5              }
+ 126   4            }else{
+ 127   4              Delay400Ms();
+ 128   4              Delay400Ms();
+ 129   4              Delay400Ms();
+ 130   4            }
+ 131   3          }
+ 132   2        }
+ 133   1      }
+ 134          /*-------------------------------------Ö÷³ÌÐò---------------------------------------*/
+ 135          /************************************LCD1602ÏÔÊ¾Ä£¿é´úÂë*************************************/
+ 136          void WriteDataLCD(unsigned char WDLCD)//Ð´Êý¾Ý
+ 137          {
+ 138   1       ReadStatusLCD(); //¼ì²âÃ¦
+ 139   1       LCD_Data = WDLCD;
+ 140   1       LCD_RS = 1;
+ 141   1       LCD_RW = 0;
+ 142   1       LCD_E = 0; //Èô¾§ÕñËÙ¶ÈÌ«¸ß¿ÉÒÔÔÚÕâºó¼ÓÐ¡µÄÑÓÊ±
+ 143   1       LCD_E = 0; //ÑÓÊ±
+ 144   1       LCD_E = 1;
+ 145   1      }
+ 146          void WriteCommandLCD(unsigned char WCLCD,BuysC) //Ð´Ö¸Áî//BuysCÎª0Ê±ºöÂÔÃ¦¼ì²â
+ 147          {
+ 148   1       if (BuysC) ReadStatusLCD(); //¸ù¾ÝÐèÒª¼ì²âÃ¦
+ 149   1       LCD_Data = WCLCD;
+ 150   1       LCD_RS = 0;
+ 151   1       LCD_RW = 0; 
+ 152   1       LCD_E = 0;
+ 153   1       LCD_E = 0;
+ 154   1       LCD_E = 1; 
+ 155   1      }
+ 156          unsigned char ReadStatusLCD(void)//¶Á×´Ì¬
+ 157          {
+ 158   1       LCD_Data = 0xFF; 
+ 159   1       LCD_RS = 0;
+ 160   1       LCD_RW = 1;
+ 161   1       LCD_E = 0;
+ 162   1       LCD_E = 0;
+ 163   1       LCD_E = 1;
+ 164   1       while (LCD_Data & Busy); //¼ì²âÃ¦ÐÅºÅ
+ 165   1       return(LCD_Data);
+ 166   1      }
+ 167          void LCDInit(void) //LCM³õÊ¼»¯
+ 168          {
+ 169   1       LCD_Data = 0;
+ 170   1       WriteCommandLCD(0x38,0); //Èý´ÎÏÔÊ¾Ä£Ê½ÉèÖÃ£¬²»¼ì²âÃ¦ÐÅºÅ
+ 171   1       Delay5Ms(); 
+ 172   1       WriteCommandLCD(0x38,0);
+ 173   1       Delay5Ms(); 
+ 174   1       WriteCommandLCD(0x38,0);
+ 175   1       Delay5Ms(); 
+ 176   1      
+ 177   1       WriteCommandLCD(0x38,1); //ÏÔÊ¾Ä£Ê½ÉèÖÃ,¿ªÊ¼ÒªÇóÃ¿´Î¼ì²âÃ¦ÐÅºÅ
+ 178   1       WriteCommandLCD(0x08,1); //¹Ø±ÕÏÔÊ¾
+C51 COMPILER V9.57.0.0   LCD1602                                                           06/08/2018 22:08:07 PAGE 4   
 
- 179   1      }
- 180          void DisplayOneChar(unsigned char X, unsigned char Y, unsigned char DData)//°´Ö¸¶¨Î»ÖÃÏÔÊ¾Ò»¸ö×Ö·û
- 181          {
- 182   1       Y &= 0x1;
- 183   1       X &= 0xF; //ÏÞÖÆX²»ÄÜ´óÓÚ15£¬Y²»ÄÜ´óÓÚ1
- 184   1       if (Y) X |= 0x40; //µ±ÒªÏÔÊ¾µÚ¶þÐÐÊ±µØÖ·Âë+0x40;
- 185   1       X |= 0x80; // Ëã³öÖ¸ÁîÂë
- 186   1       WriteCommandLCD(X, 0); //ÕâÀï²»¼ì²âÃ¦ÐÅºÅ£¬·¢ËÍµØÖ·Âë
- 187   1       WriteDataLCD(DData);
- 188   1      }
- 189          void DisplayListChar(unsigned char X, unsigned char Y, unsigned char code *DData)//°´Ö¸¶¨Î»ÖÃÏÔÊ¾Ò»´®×Ö·û
- 190          {
- 191   1       unsigned char ListLength;
- 192   1      
- 193   1        ListLength = 0;
- 194   1       Y &= 0x1;
- 195   1       X &= 0xF; //ÏÞÖÆX²»ÄÜ´óÓÚ15£¬Y²»ÄÜ´óÓÚ1
- 196   1       while (DData[ListLength]>=0x20) //Èôµ½´ï×Ö´®Î²ÔòÍË³ö
- 197   1        {
- 198   2         if (X <= 0xF) //X×ø±êÓ¦Ð¡ÓÚ0xF
- 199   2          {
- 200   3           DisplayOneChar(X, Y, DData[ListLength]); //ÏÔÊ¾µ¥¸ö×Ö·û
- 201   3           ListLength++;
- 202   3           X++;
- 203   3          }
- 204   2        }
- 205   1      }
- 206          /************************************LCD1602ÏÔÊ¾Ä£¿é´úÂë*************************************/
- 207          
- 208          /************************************ÎÂ¶ÈÏÔÊ¾*************************************/
- 209          
- 210          void Display_c(unsigned char Y)//ÏÔÊ¾ÎÂ¶Èµ¥Î»£¬²ÎÊýY±íÊ¾µÚ¼¸ÐÐ
- 211          {
- 212   1        Y &= 0x1;
- 213   1        DisplayOneChar(14,Y,0xdf);//ÏÔÊ¾ÎÂ¶Èµ¥Î»µÄÔ²µã
- 214   1        DisplayOneChar(15,Y,'C');//ÏÔÊ¾ÎÂ¶Èµ¥Î»µÄC
- 215   1      }
- 216          /************************************ÎÂ¶ÈÏÔÊ¾*************************************/
- 217          
- 218          /************************************¼üÅÌ´¦Àí³ÌÐò*************************************/
- 219          void keyboard(void)//¼üÅÌ´¦Àí³ÌÐò
- 220          {
- 221   1        unsigned char temp_c;//ÁÐÖµ»º´æÖµ
- 222   1        unsigned char temp_r;//ÐÐÖµ»º´æÖµ
- 223   1        unsigned char key_value='k';//°´¼üÖµ
- 224   1        Keyboard_data = 0xF0;//¶ÔP0¶Ë¿Ú³õÊ¼»¯£¬¸³³õÖµ
- 225   1        
- 226   1        if(Keyboard_data == 0xF0)
- 227   1          return;
- 228   1        Delay5Ms();//ÑÓÊ±È¥¶¶¶¯
+ 179   1       WriteCommandLCD(0x01,1); //ÏÔÊ¾ÇåÆÁ
+ 180   1       WriteCommandLCD(0x06,1); // ÏÔÊ¾¹â±êÒÆ¶¯ÉèÖÃ
+ 181   1       WriteCommandLCD(0x0C,1); // ÏÔÊ¾¿ª¼°¹â±êÉèÖÃ
+ 182   1      }
+ 183          void DisplayOneChar(unsigned char X, unsigned char Y, unsigned char DData)//°´Ö¸¶¨Î»ÖÃÏÔÊ¾Ò»¸ö×Ö·û
+ 184          {
+ 185   1       Y &= 0x1;
+ 186   1       X &= 0xF; //ÏÞÖÆX²»ÄÜ´óÓÚ15£¬Y²»ÄÜ´óÓÚ1
+ 187   1       if (Y) X |= 0x40; //µ±ÒªÏÔÊ¾µÚ¶þÐÐÊ±µØÖ·Âë+0x40;
+ 188   1       X |= 0x80; // Ëã³öÖ¸ÁîÂë
+ 189   1       WriteCommandLCD(X, 0); //ÕâÀï²»¼ì²âÃ¦ÐÅºÅ£¬·¢ËÍµØÖ·Âë
+ 190   1       WriteDataLCD(DData);
+ 191   1      }
+ 192          void DisplayListChar(unsigned char X, unsigned char Y, unsigned char code *DData)//°´Ö¸¶¨Î»ÖÃÏÔÊ¾Ò»´®×Ö·û
+ 193          {
+ 194   1       unsigned char ListLength;
+ 195   1      
+ 196   1        ListLength = 0;
+ 197   1       Y &= 0x1;
+ 198   1       X &= 0xF; //ÏÞÖÆX²»ÄÜ´óÓÚ15£¬Y²»ÄÜ´óÓÚ1
+ 199   1       while (DData[ListLength]>=0x20) //Èôµ½´ï×Ö´®Î²ÔòÍË³ö
+ 200   1        {
+ 201   2         if (X <= 0xF) //X×ø±êÓ¦Ð¡ÓÚ0xF
+ 202   2          {
+ 203   3           DisplayOneChar(X, Y, DData[ListLength]); //ÏÔÊ¾µ¥¸ö×Ö·û
+ 204   3           ListLength++;
+ 205   3           X++;
+ 206   3          }
+ 207   2        }
+ 208   1      }
+ 209          /************************************LCD1602ÏÔÊ¾Ä£¿é´úÂë*************************************/
+ 210          
+ 211          /************************************ÎÂ¶ÈÏÔÊ¾*************************************/
+ 212          
+ 213          void Display_c(unsigned char Y)//ÏÔÊ¾ÎÂ¶Èµ¥Î»£¬²ÎÊýY±íÊ¾µÚ¼¸ÐÐ
+ 214          {
+ 215   1        Y &= 0x1;
+ 216   1        DisplayOneChar(14,Y,0xdf);//ÏÔÊ¾ÎÂ¶Èµ¥Î»µÄÔ²µã
+ 217   1        DisplayOneChar(15,Y,'C');//ÏÔÊ¾ÎÂ¶Èµ¥Î»µÄC
+ 218   1      }
+ 219          /************************************ÎÂ¶ÈÏÔÊ¾*************************************/
+ 220          
+ 221          /************************************¼üÅÌ´¦Àí³ÌÐò*************************************/
+ 222          void keyboard(void)//¼üÅÌ´¦Àí³ÌÐò
+ 223          {
+ 224   1        unsigned char temp_c;//ÁÐÖµ»º´æÖµ
+ 225   1        unsigned char temp_r;//ÐÐÖµ»º´æÖµ
+ 226   1        unsigned char key_value='k';//°´¼üÖµ
+ 227   1        Keyboard_data = 0xF0;//¶ÔP0¶Ë¿Ú³õÊ¼»¯£¬¸³³õÖµ
+ 228   1        
  229   1        if(Keyboard_data == 0xF0)
  230   1          return;
- 231   1        temp_c = Keyboard_data;
- 232   1        
- 233   1        WriteCommandLCD(0x01,1); //ÓÐ°´¼ü°´ÏÂ£¬LCDÏÔÊ¾ÆÁÇåÆÁ
- 234   1        OK = 1;
- 235   1        switch(temp_c){
- 236   2          case 0xE0://µÚÒ»ÁÐ
- 237   2            Keyboard_data = 0x0F;
- 238   2            temp_r = Keyboard_data;
- 239   2            while(Keyboard_data != 0x0F);
- 240   2            switch(temp_r){
-C51 COMPILER V9.57.0.0   LCD1602                                                           06/06/2018 20:32:35 PAGE 5   
+ 231   1        Delay5Ms();//ÑÓÊ±È¥¶¶¶¯
+ 232   1        if(Keyboard_data == 0xF0)
+ 233   1          return;
+ 234   1        temp_c = Keyboard_data;
+ 235   1        
+ 236   1        WriteCommandLCD(0x01,1); //ÓÐ°´¼ü°´ÏÂ£¬LCDÏÔÊ¾ÆÁÇåÆÁ
+ 237   1        OK = 1;
+ 238   1        switch(temp_c){
+ 239   2          case 0xE0://µÚÒ»ÁÐ
+ 240   2            Keyboard_data = 0x0F;
+C51 COMPILER V9.57.0.0   LCD1602                                                           06/08/2018 22:08:07 PAGE 5   
 
- 241   3              case 0x0E://µÚÒ»ÐÐ
- 242   3                key_value = 1;
- 243   3                break;
- 244   3              case 0x0D://µÚ¶þÐÐ
- 245   3                key_value = 4;
+ 241   2            temp_r = Keyboard_data;
+ 242   2            while(Keyboard_data != 0x0F);
+ 243   2            switch(temp_r){
+ 244   3              case 0x0E://µÚÒ»ÐÐ
+ 245   3                key_value = 1;
  246   3                break;
- 247   3              case 0x0B://µÚÈýÐÐ
- 248   3                key_value = 7;
+ 247   3              case 0x0D://µÚ¶þÐÐ
+ 248   3                key_value = 4;
  249   3                break;
- 250   3              case 0x07://µÚËÄÐÐ
- 251   3                key_value = 'c';
+ 250   3              case 0x0B://µÚÈýÐÐ
+ 251   3                key_value = 7;
  252   3                break;
- 253   3              default:
- 254   3                DisplayListChar(0, 5, "Key Row Error!");
+ 253   3              case 0x07://µÚËÄÐÐ
+ 254   3                key_value = 'c';
  255   3                break;
- 256   3            }
- 257   2            break;
- 258   2          case 0xD0://µÚ¶þÁÐ
- 259   2            Keyboard_data = 0x0F;
- 260   2            temp_r = Keyboard_data;
- 261   2            while(Keyboard_data != 0x0F);
- 262   2            switch(temp_r){
- 263   3              case 0x0E://µÚÒ»ÐÐ
- 264   3                key_value = 2;
- 265   3                break;
- 266   3              case 0x0D://µÚ¶þÐÐ
- 267   3                key_value = 5;
+ 256   3              default:
+ 257   3                DisplayListChar(0, 5, "Key Row Error!");
+ 258   3                break;
+ 259   3            }
+ 260   2            break;
+ 261   2          case 0xD0://µÚ¶þÁÐ
+ 262   2            Keyboard_data = 0x0F;
+ 263   2            temp_r = Keyboard_data;
+ 264   2            while(Keyboard_data != 0x0F);
+ 265   2            switch(temp_r){
+ 266   3              case 0x0E://µÚÒ»ÐÐ
+ 267   3                key_value = 2;
  268   3                break;
- 269   3              case 0x0B://µÚÈýÐÐ
- 270   3                key_value = 8;
+ 269   3              case 0x0D://µÚ¶þÐÐ
+ 270   3                key_value = 5;
  271   3                break;
- 272   3              case 0x07://µÚËÄÐÐ
- 273   3                key_value = 0;
+ 272   3              case 0x0B://µÚÈýÐÐ
+ 273   3                key_value = 8;
  274   3                break;
- 275   3              default:
- 276   3                DisplayListChar(0, 5, "Key Row Error!");
+ 275   3              case 0x07://µÚËÄÐÐ
+ 276   3                key_value = 0;
  277   3                break;
- 278   3            }
- 279   2            break;
- 280   2          case 0xB0://µÚÈýÁÐ
- 281   2            Keyboard_data = 0x0F;
- 282   2            temp_r = Keyboard_data;
- 283   2            while(Keyboard_data != 0x0F);
- 284   2            switch(temp_r){
- 285   3              case 0x0E://µÚÒ»ÐÐ
- 286   3                key_value = 3;
- 287   3                break;
- 288   3              case 0x0D://µÚ¶þÐÐ
- 289   3                key_value = 6;
+ 278   3              default:
+ 279   3                DisplayListChar(0, 5, "Key Row Error!");
+ 280   3                break;
+ 281   3            }
+ 282   2            break;
+ 283   2          case 0xB0://µÚÈýÁÐ
+ 284   2            Keyboard_data = 0x0F;
+ 285   2            temp_r = Keyboard_data;
+ 286   2            while(Keyboard_data != 0x0F);
+ 287   2            switch(temp_r){
+ 288   3              case 0x0E://µÚÒ»ÐÐ
+ 289   3                key_value = 3;
  290   3                break;
- 291   3              case 0x0B://µÚÈýÐÐ
- 292   3                key_value = 9;
+ 291   3              case 0x0D://µÚ¶þÐÐ
+ 292   3                key_value = 6;
  293   3                break;
- 294   3              case 0x07://µÚËÄÐÐ
- 295   3                key_value = 'o';
+ 294   3              case 0x0B://µÚÈýÐÐ
+ 295   3                key_value = 9;
  296   3                break;
- 297   3              default:
- 298   3                DisplayListChar(0, 5, "Key Row Error!");
+ 297   3              case 0x07://µÚËÄÐÐ
+ 298   3                key_value = 'o';
  299   3                break;
- 300   3            }
- 301   2            break;
- 302   2          case 0x70://µÚËÄÁÐ
-C51 COMPILER V9.57.0.0   LCD1602                                                           06/06/2018 20:32:35 PAGE 6   
+ 300   3              default:
+ 301   3                DisplayListChar(0, 5, "Key Row Error!");
+ 302   3                break;
+C51 COMPILER V9.57.0.0   LCD1602                                                           06/08/2018 22:08:07 PAGE 6   
 
- 303   2            Keyboard_data = 0x0F;
- 304   2            temp_r = Keyboard_data;
- 305   2            while(Keyboard_data != 0x0F);
- 306   2            switch(temp_r){
- 307   3              case 0x0E://µÚÒ»ÐÐ
- 308   3                key_value = 'h';
- 309   3                break;
- 310   3              case 0x0D://µÚ¶þÐÐ
- 311   3                key_value = 'l';
+ 303   3            }
+ 304   2            break;
+ 305   2          case 0x70://µÚËÄÁÐ
+ 306   2            Keyboard_data = 0x0F;
+ 307   2            temp_r = Keyboard_data;
+ 308   2            while(Keyboard_data != 0x0F);
+ 309   2            switch(temp_r){
+ 310   3              case 0x0E://µÚÒ»ÐÐ
+ 311   3                key_value = 'h';
  312   3                break;
- 313   3              case 0x0B://µÚÈýÐÐ
- 314   3                key_value = 'x';
+ 313   3              case 0x0D://µÚ¶þÐÐ
+ 314   3                key_value = 'l';
  315   3                break;
- 316   3              case 0x07://µÚËÄÐÐ
- 317   3                key_value = 'k';
- 318   3                //²é¿´ÎÂ¶ÈÉÏ¡¢ÏÂÏÞµÄÉèÖÃÖµ
- 319   3                DisplayListChar(0, 0, "Upper Tem:");//ÎÂ¶ÈÉÏÏÞ
- 320   3                Display_float(10,0,upper_t);
- 321   3                Display_c(0);
- 322   3                DisplayListChar(0, 5, "Lower Tem:");//ÎÂ¶ÈÏÂÏÞ
- 323   3                Display_float(10,1,lower_t);
- 324   3                Display_c(1); 
- 325   3                Delay400Ms();// ÑÓÊ±µÈ´ý
- 326   3                Delay400Ms();// ÑÓÊ±µÈ´ý
- 327   3                Delay400Ms();// ÑÓÊ±µÈ´ý
+ 316   3              case 0x0B://µÚÈýÐÐ
+ 317   3                key_value = 'x';
+ 318   3                break;
+ 319   3              case 0x07://µÚËÄÐÐ
+ 320   3                key_value = 'k';
+ 321   3                //²é¿´ÎÂ¶ÈÉÏ¡¢ÏÂÏÞµÄÉèÖÃÖµ
+ 322   3                DisplayListChar(0, 0, "Upper Tem:");//ÎÂ¶ÈÉÏÏÞ
+ 323   3                Display_float(10,0,upper_t);
+ 324   3                Display_c(0);
+ 325   3                DisplayListChar(0, 5, "Lower Tem:");//ÎÂ¶ÈÏÂÏÞ
+ 326   3                Display_float(10,1,lower_t);
+ 327   3                Display_c(1); 
  328   3                Delay400Ms();// ÑÓÊ±µÈ´ý
- 329   3                OK = 0;//ÍË³ö¼üÅÌÊÂ¼þ
- 330   3                H = 0;//ÎÂ¶ÈÉÏÏÞ±êÖ¾ÇåÁã
- 331   3                L = 0;//ÎÂ¶ÈÏÂÏÞ±êÖ¾ÇåÁã
- 332   3                WriteCommandLCD(0x01,1); //ÓÐ°´¼ü°´ÏÂ£¬LCDÏÔÊ¾ÆÁÇåÆÁ
- 333   3                break;
- 334   3              default:
- 335   3                DisplayListChar(0, 5, "Key Row Error!");
+ 329   3                Delay400Ms();// ÑÓÊ±µÈ´ý
+ 330   3                Delay400Ms();// ÑÓÊ±µÈ´ý
+ 331   3                Delay400Ms();// ÑÓÊ±µÈ´ý
+ 332   3                OK = 0;//ÍË³ö¼üÅÌÊÂ¼þ
+ 333   3                H = 0;//ÎÂ¶ÈÉÏÏÞ±êÖ¾ÇåÁã
+ 334   3                L = 0;//ÎÂ¶ÈÏÂÏÞ±êÖ¾ÇåÁã
+ 335   3                WriteCommandLCD(0x01,1); //ÓÐ°´¼ü°´ÏÂ£¬LCDÏÔÊ¾ÆÁÇåÆÁ
  336   3                break;
- 337   3            }
- 338   2            break;
- 339   2          default:
- 340   2            DisplayListChar(0, 5, "Key Col Error!");
+ 337   3              default:
+ 338   3                DisplayListChar(0, 5, "Key Row Error!");
+ 339   3                break;
+ 340   3            }
  341   2            break;
- 342   2        }
- 343   1        switch(key_value){
- 344   2          case 'k'://Ä¬ÈÏ³õÊ¼Öµ
- 345   2            break;
- 346   2          case 'h'://ÎÂ¶ÈÉÏÏÞ±êÖ¾
- 347   2            H = 1;//ÎÂ¶ÈÉÏÏÞÉèÖÃ±êÖ¾Î»
- 348   2            L = 0;//ÎÂ¶ÈÏÂÏÞ±êÖ¾ÇåÁã
- 349   2            DisplayListChar(0,0, "Input Val:");
- 350   2            DisplayListChar(0,1,"Upper Tem:");
- 351   2            DisplayListChar(9,1,"pera...");//ÏÔÊ¾ÎÂ¶ÈÈ«Ó¢ÎÄ
- 352   2            break;
- 353   2          case 'l'://ÎÂ¶ÈÏÂÏÞ±êÖ¾
- 354   2            H = 0;//ÎÂ¶ÈÉÏÏÞ±êÖ¾ÇåÁã
- 355   2            L = 1;//ÎÂ¶ÈÏÂÏÞÉèÖÃ±êÖ¾Î»
- 356   2            DisplayListChar(0,0, "Input Val:");
- 357   2            DisplayListChar(0,1,"Lower Tem:");
- 358   2            DisplayListChar(9,1,"pera...");//ÏÔÊ¾ÎÂ¶ÈÈ«Ó¢ÎÄ
- 359   2            break;
- 360   2          case 'c'://È¡ÏûÉèÖÃ°´¼ü
- 361   2            DisplayListChar(0,0,"Cancel input OK!");
- 362   2            input_value = 0;
- 363   2            H = 0;
- 364   2            L = 0;
-C51 COMPILER V9.57.0.0   LCD1602                                                           06/06/2018 20:32:35 PAGE 7   
+ 342   2          default:
+ 343   2            DisplayListChar(0, 5, "Key Col Error!");
+ 344   2            break;
+ 345   2        }
+ 346   1        switch(key_value){
+ 347   2          case 'k'://Ä¬ÈÏ³õÊ¼Öµ
+ 348   2            break;
+ 349   2          case 'h'://ÎÂ¶ÈÉÏÏÞ±êÖ¾
+ 350   2            H = 1;//ÎÂ¶ÈÉÏÏÞÉèÖÃ±êÖ¾Î»
+ 351   2            L = 0;//ÎÂ¶ÈÏÂÏÞ±êÖ¾ÇåÁã
+ 352   2            DisplayListChar(0,0, "Input Val:");
+ 353   2            DisplayListChar(0,1,"Upper Tem:");
+ 354   2            DisplayListChar(9,1,"pera...");//ÏÔÊ¾ÎÂ¶ÈÈ«Ó¢ÎÄ
+ 355   2            break;
+ 356   2          case 'l'://ÎÂ¶ÈÏÂÏÞ±êÖ¾
+ 357   2            H = 0;//ÎÂ¶ÈÉÏÏÞ±êÖ¾ÇåÁã
+ 358   2            L = 1;//ÎÂ¶ÈÏÂÏÞÉèÖÃ±êÖ¾Î»
+ 359   2            DisplayListChar(0,0, "Input Val:");
+ 360   2            DisplayListChar(0,1,"Lower Tem:");
+ 361   2            DisplayListChar(9,1,"pera...");//ÏÔÊ¾ÎÂ¶ÈÈ«Ó¢ÎÄ
+ 362   2            break;
+ 363   2          case 'c'://È¡ÏûÉèÖÃ°´¼ü
+ 364   2            DisplayListChar(0,0,"Cancel input OK!");
+C51 COMPILER V9.57.0.0   LCD1602                                                           06/08/2018 22:08:07 PAGE 7   
 
- 365   2            X = 0;
- 366   2            OK = 0;
- 367   2            Delay400Ms();
- 368   2            Delay400Ms();
- 369   2            WriteCommandLCD(0x01,1); //ÓÐ°´¼ü°´ÏÂ£¬LCDÏÔÊ¾ÆÁÇåÆÁ
- 370   2            break;
- 371   2          case 'x'://Ð¡Êýµã°´¼ü
- 372   2            if(input_value != 0){
- 373   3              X = 1;
- 374   3              //ÏÔÊ¾ÌáÊ¾ÎÄ×Ö
- 375   3              if(H){
- 376   4                DisplayListChar(0,0, "Input Val:");
- 377   4                DisplayListChar(0,1,"Upper Tem:");
- 378   4                DisplayListChar(9,1,"pera...");//ÏÔÊ¾ÎÂ¶ÈÈ«Ó¢ÎÄ
- 379   4              }else if(L){
- 380   4                DisplayListChar(0,0, "Input Val:");
- 381   4                DisplayListChar(0,1,"Lower Tem:");
- 382   4                DisplayListChar(9,1,"pera...");//ÏÔÊ¾ÎÂ¶ÈÈ«Ó¢ÎÄ
- 383   4              }
- 384   3              //ÏÔÊ¾Êý×Ö
- 385   3              DisplayOneChar(10,0,input_value/10+0x30);
- 386   3              DisplayOneChar(11,0,(int)input_value%10+0x30);
- 387   3              DisplayOneChar(12,0,'.');
- 388   3            }else{
- 389   3              DisplayListChar(0,0,"Input Err!");
- 390   3            }     
- 391   2            break;
- 392   2          case 'o'://È·ÈÏ¼ü
- 393   2            if(input_value != 0){
- 394   3              if(H){
- 395   4                upper_t = input_value;
- 396   4                DisplayListChar(0,0,"Set Upper_t OK!");
- 397   4              }else if(L){
- 398   4                lower_t = input_value;
- 399   4                DisplayListChar(0,0,"Set Lower_t OK!");
- 400   4              }
- 401   3              if(upper_t < lower_t){
- 402   4                upper_t = 40.0;
- 403   4                lower_t = 20.0;
- 404   4                DisplayListChar(0,0,"Temp Set Err!");
- 405   4                DisplayListChar(0,1,"Temp Is Default");
- 406   4              }
- 407   3              input_value = 0;
- 408   3              H = 0;
- 409   3              L = 0;
- 410   3              X = 0;
- 411   3              OK = 0;
- 412   3              Delay400Ms();
- 413   3              Delay400Ms();
- 414   3              WriteCommandLCD(0x01,1); //ÓÐ°´¼ü°´ÏÂ£¬LCDÏÔÊ¾ÆÁÇåÆÁ
- 415   3            }else{
- 416   3              DisplayListChar(0,0,"Input Err!");
- 417   3            }     
- 418   2            break;
- 419   2          default://ÊýÖµ
- 420   2            if(!(H||L)){
- 421   3              DisplayListChar(0,0,"Upper OR Lower?");
- 422   3            }else{
- 423   3              if(H){
- 424   4                DisplayListChar(0,0, "Input Val:");
- 425   4                DisplayListChar(0,1,"Upper Tem:");
- 426   4                DisplayListChar(9,1,"pera...");//ÏÔÊ¾ÎÂ¶ÈÈ«Ó¢ÎÄ
-C51 COMPILER V9.57.0.0   LCD1602                                                           06/06/2018 20:32:35 PAGE 8   
+ 365   2            input_value = 0;
+ 366   2            H = 0;
+ 367   2            L = 0;
+ 368   2            X = 0;
+ 369   2            OK = 0;
+ 370   2            Delay400Ms();
+ 371   2            Delay400Ms();
+ 372   2            WriteCommandLCD(0x01,1); //ÓÐ°´¼ü°´ÏÂ£¬LCDÏÔÊ¾ÆÁÇåÆÁ
+ 373   2            break;
+ 374   2          case 'x'://Ð¡Êýµã°´¼ü
+ 375   2            if(input_value != 0){
+ 376   3              X = 1;
+ 377   3              //ÏÔÊ¾ÌáÊ¾ÎÄ×Ö
+ 378   3              if(H){
+ 379   4                DisplayListChar(0,0, "Input Val:");
+ 380   4                DisplayListChar(0,1,"Upper Tem:");
+ 381   4                DisplayListChar(9,1,"pera...");//ÏÔÊ¾ÎÂ¶ÈÈ«Ó¢ÎÄ
+ 382   4              }else if(L){
+ 383   4                DisplayListChar(0,0, "Input Val:");
+ 384   4                DisplayListChar(0,1,"Lower Tem:");
+ 385   4                DisplayListChar(9,1,"pera...");//ÏÔÊ¾ÎÂ¶ÈÈ«Ó¢ÎÄ
+ 386   4              }
+ 387   3              //ÏÔÊ¾Êý×Ö
+ 388   3              DisplayOneChar(10,0,input_value/10+0x30);
+ 389   3              DisplayOneChar(11,0,(int)input_value%10+0x30);
+ 390   3              DisplayOneChar(12,0,'.');
+ 391   3            }else{
+ 392   3              DisplayListChar(0,0,"Input Err!");
+ 393   3            }     
+ 394   2            break;
+ 395   2          case 'o'://È·ÈÏ¼ü
+ 396   2            if(input_value != 0){
+ 397   3              if(H){
+ 398   4                upper_t = input_value;
+ 399   4                DisplayListChar(0,0,"Set Upper_t OK!");
+ 400   4              }else if(L){
+ 401   4                lower_t = input_value;
+ 402   4                DisplayListChar(0,0,"Set Lower_t OK!");
+ 403   4              }
+ 404   3              if(upper_t < lower_t){
+ 405   4                upper_t = 40.0;
+ 406   4                lower_t = 20.0;
+ 407   4                DisplayListChar(0,0,"Temp Set Err!");
+ 408   4                DisplayListChar(0,1,"Temp Is Default");
+ 409   4              }
+ 410   3              input_value = 0;
+ 411   3              H = 0;
+ 412   3              L = 0;
+ 413   3              X = 0;
+ 414   3              OK = 0;
+ 415   3              Delay400Ms();
+ 416   3              Delay400Ms();
+ 417   3              WriteCommandLCD(0x01,1); //ÓÐ°´¼ü°´ÏÂ£¬LCDÏÔÊ¾ÆÁÇåÆÁ
+ 418   3            }else{
+ 419   3              DisplayListChar(0,0,"Input Err!");
+ 420   3            }     
+ 421   2            break;
+ 422   2          default://ÊýÖµ
+ 423   2            if(!(H||L)){
+ 424   3              DisplayListChar(0,0,"Upper OR Lower?");
+ 425   3            }else{
+ 426   3              if(H){
+C51 COMPILER V9.57.0.0   LCD1602                                                           06/08/2018 22:08:07 PAGE 8   
 
- 427   4              }else if(L){
- 428   4                DisplayListChar(0,0, "Input Val:");
- 429   4                DisplayListChar(0,1,"Lower Tem:");
- 430   4                DisplayListChar(9,1,"pera...");//ÏÔÊ¾ÎÂ¶ÈÈ«Ó¢ÎÄ
- 431   4              }
- 432   3              //---------------ÊýÖµ´¦Àí-----------------------
- 433   3              if(input_value == 0){
- 434   4                input_value = key_value * 10;//Ê®Î»Êý¾Ý
- 435   4                DisplayOneChar(10,0,key_value+0x30);
- 436   4              }else if(X){
- 437   4                input_value = input_value + key_value * 0.1;//Ð¡ÊýÎ»Êý¾Ý
- 438   4                Display_float(10,0,input_value);
- 439   4                Display_c(0);
- 440   4              }else{
- 441   4                if(input_value >= 10){
- 442   5                  input_value = input_value + key_value;//¸öÎ»Êý¾Ý
- 443   5                  DisplayOneChar(10,0,input_value/10+0x30);
- 444   5                  DisplayOneChar(11,0,key_value+0x30);
- 445   5                }else{
- 446   5                  DisplayListChar(0,0,"Temp Set Err!");
- 447   5                  DisplayListChar(0,1,"Temp Is Default");
- 448   5                  input_value = 0;
- 449   5                  H = 0;
- 450   5                  L = 0;
- 451   5                  X = 0;
- 452   5                  OK = 0;
- 453   5                }         
- 454   4              }
- 455   3            }
- 456   2            break;
- 457   2        }
- 458   1        Keyboard_data = 0xF0;//½áÊø¶ÔP1¶Ë¿Ú³õÊ¼»¯£¬¸³³õÖµ
- 459   1      }
- 460          /************************************¼üÅÌ´¦Àí³ÌÐò*************************************/
- 461          
- 462          /************************************¸¡µãÊýÏÔÊ¾*************************************/
- 463          void Display_float(unsigned char X,unsigned Y,float o_char)//Êý×Ö×ª×Ö·û´®
- 464          {
- 465   1        unsigned int  buffer3,buffer4,buffer5,buffer6;
- 466   1        
- 467   1        if(o_char > 100){
- 468   2          DisplayListChar(X,Y,"Err---");
- 469   2        }else{
- 470   2          o_char = o_char * 100;//È¥³ýÐ¡Êý
- 471   2          buffer3 = (int)o_char;
- 472   2          
- 473   2          buffer4 = buffer3/1000;//Ê®Î»
- 474   2          buffer5 = buffer3 % 1000 / 100;//¸öÎ»
- 475   2          buffer6 = buffer3 % 1000 % 100/10;//Ð¡ÊýÎ»
- 476   2          
- 477   2          DisplayOneChar(X, Y, buffer4+0x30);
- 478   2          DisplayOneChar(X+1, Y, buffer5+0x30);
- 479   2          DisplayOneChar(X+2, Y, '.');
- 480   2          DisplayOneChar(X+3, Y, buffer6+0x30);
- 481   2        }
- 482   1        
- 483   1      }
- 484          /************************************¸¡µãÊýÏÔÊ¾*************************************/
- 485          
- 486          /************************************DB18S20´¦Àí³ÌÐò*************************************/
- 487          void Init_DS18B20(void) 
- 488          {
-C51 COMPILER V9.57.0.0   LCD1602                                                           06/06/2018 20:32:35 PAGE 9   
+ 427   4                DisplayListChar(0,0, "Input Val:");
+ 428   4                DisplayListChar(0,1,"Upper Tem:");
+ 429   4                DisplayListChar(9,1,"pera...");//ÏÔÊ¾ÎÂ¶ÈÈ«Ó¢ÎÄ
+ 430   4              }else if(L){
+ 431   4                DisplayListChar(0,0, "Input Val:");
+ 432   4                DisplayListChar(0,1,"Lower Tem:");
+ 433   4                DisplayListChar(9,1,"pera...");//ÏÔÊ¾ÎÂ¶ÈÈ«Ó¢ÎÄ
+ 434   4              }
+ 435   3              //---------------ÊýÖµ´¦Àí-----------------------
+ 436   3              if(input_value == 0){
+ 437   4                input_value = key_value * 10;//Ê®Î»Êý¾Ý
+ 438   4                DisplayOneChar(10,0,key_value+0x30);
+ 439   4              }else if(X){
+ 440   4                input_value = input_value + key_value * 0.1;//Ð¡ÊýÎ»Êý¾Ý
+ 441   4                Display_float(10,0,input_value);
+ 442   4                Display_c(0);
+ 443   4              }else if(input_value >= 10 && input_value < 100){
+ 444   4                  input_value = input_value + key_value;//¸öÎ»Êý¾Ý
+ 445   4                  DisplayOneChar(10,0,input_value/10+0x30);
+ 446   4                  DisplayOneChar(11,0,(int)input_value%10+0x30);
+ 447   4              }else{
+ 448   4                  DisplayListChar(0,0,"Temp Set Err!");
+ 449   4                  DisplayListChar(0,1,"Temp Is Default");
+ 450   4                  input_value = 0;
+ 451   4                  H = 0;
+ 452   4                  L = 0;
+ 453   4                  X = 0;
+ 454   4                  OK = 0;
+ 455   4              }
+ 456   3            }
+ 457   2            break;
+ 458   2        }
+ 459   1        Keyboard_data = 0xF0;//½áÊø¶ÔP1¶Ë¿Ú³õÊ¼»¯£¬¸³³õÖµ
+ 460   1      }
+ 461          /************************************¼üÅÌ´¦Àí³ÌÐò*************************************/
+ 462          
+ 463          /************************************¸¡µãÊýÏÔÊ¾*************************************/
+ 464          void Display_float(unsigned char X,unsigned Y,float o_char)//Êý×Ö×ª×Ö·û´®
+ 465          {
+ 466   1        unsigned int  buffer3,buffer4,buffer5,buffer6;
+ 467   1        
+ 468   1        if(o_char > 100){
+ 469   2          DisplayListChar(X,Y,"Err---");
+ 470   2        }else{
+ 471   2          o_char = o_char * 100;//È¥³ýÐ¡Êý
+ 472   2          buffer3 = (int)o_char;
+ 473   2          
+ 474   2          buffer4 = buffer3/1000;//Ê®Î»
+ 475   2          buffer5 = buffer3 % 1000 / 100;//¸öÎ»
+ 476   2          buffer6 = buffer3 % 1000 % 100/10;//Ð¡ÊýÎ»
+ 477   2          
+ 478   2          DisplayOneChar(X, Y, buffer4+0x30);
+ 479   2          DisplayOneChar(X+1, Y, buffer5+0x30);
+ 480   2          DisplayOneChar(X+2, Y, '.');
+ 481   2          DisplayOneChar(X+3, Y, buffer6+0x30);
+ 482   2        }
+ 483   1        
+ 484   1      }
+ 485          /************************************¸¡µãÊýÏÔÊ¾*************************************/
+ 486          
+ 487          /************************************DB18S20´¦Àí³ÌÐò*************************************/
+ 488          void Init_DS18B20(void) 
+C51 COMPILER V9.57.0.0   LCD1602                                                           06/08/2018 22:08:07 PAGE 9   
 
- 489   1        unsigned char x=0;
- 490   1        DQ=1;           //DQÏÈÖÃ¸ß 
- 491   1        delay(8);         //ÉÔÑÓÊ±
- 492   1        DQ=0;           //·¢ËÍ¸´Î»Âö³å 
- 493   1        delay(80);        //ÑÓÊ±£¨>480us) 
- 494   1        DQ=1;           //À­¸ßÊý¾ÝÏß 
- 495   1        delay(5);         //µÈ´ý£¨15~60us) 
- 496   1        x=DQ;           //ÓÃXµÄÖµÀ´ÅÐ¶Ï³õÊ¼»¯ÓÐÃ»ÓÐ³É¹¦£¬18B20´æÔÚµÄ»°X=0£¬·ñÔòX=1 
- 497   1        delay(20); 
- 498   1      }
- 499          
- 500          //¶ÁÒ»¸ö×Ö½Ú
- 501          unsigned char ReadOneChar(void)       //Ö÷»úÊý¾ÝÏßÏÈ´Ó¸ßÀ­ÖÁµÍµçÆ½1usÒÔÉÏ£¬ÔÙÊ¹Êý¾ÝÏßÉýÎª¸ßµçÆ½£¬´Ó¶ø²úÉú¶ÁÐ
+ 489          {
+ 490   1        unsigned char x=0;
+ 491   1        DQ=1;           //DQÏÈÖÃ¸ß 
+ 492   1        delay(8);         //ÉÔÑÓÊ±
+ 493   1        DQ=0;           //·¢ËÍ¸´Î»Âö³å 
+ 494   1        delay(80);        //ÑÓÊ±£¨>480us) 
+ 495   1        DQ=1;           //À­¸ßÊý¾ÝÏß 
+ 496   1        delay(5);         //µÈ´ý£¨15~60us) 
+ 497   1        x=DQ;           //ÓÃXµÄÖµÀ´ÅÐ¶Ï³õÊ¼»¯ÓÐÃ»ÓÐ³É¹¦£¬18B20´æÔÚµÄ»°X=0£¬·ñÔòX=1 
+ 498   1        delay(20); 
+ 499   1      }
+ 500          
+ 501          //¶ÁÒ»¸ö×Ö½Ú
+ 502          unsigned char ReadOneChar(void)       //Ö÷»úÊý¾ÝÏßÏÈ´Ó¸ßÀ­ÖÁµÍµçÆ½1usÒÔÉÏ£¬ÔÙÊ¹Êý¾ÝÏßÉýÎª¸ßµçÆ½£¬´Ó¶ø²úÉú¶ÁÐ
              -ÅºÅ
- 502          {
- 503   1        unsigned char i=0;    //Ã¿¸ö¶ÁÖÜÆÚ×î¶ÌµÄ³ÖÐøÊ±¼äÎª60us£¬¸÷¸ö¶ÁÖÜÆÚÖ®¼ä±ØÐëÓÐ1usÒÔÉÏµÄ¸ßµçÆ½»Ö¸´ÆÚ
- 504   1        unsigned char dat=0; 
- 505   1        for (i=8;i>0;i--)     //Ò»¸ö×Ö½ÚÓÐ8Î» 
- 506   1        {
- 507   2          DQ=1; 
- 508   2          delay(1); 
- 509   2          DQ=0;
- 510   2          dat>>=1; 
- 511   2          DQ=1; 
- 512   2          if(DQ) 
- 513   2          dat|=0x80; 
- 514   2          delay(4);
- 515   2        } 
- 516   1        return(dat);
- 517   1      }
- 518          
- 519          //Ð´Ò»¸ö×Ö½Ú
- 520          void WriteOneChar(unsigned char dat) 
- 521          { 
- 522   1        unsigned char i=0;    //Êý¾ÝÏß´Ó¸ßµçÆ½À­ÖÁµÍµçÆ½£¬²úÉúÐ´ÆðÊ¼ÐÅºÅ¡£15usÖ®ÄÚ½«ËùÐèÐ´µÄÎ»ËÍµ½Êý¾ÝÏßÉÏ£¬
- 523   1        for(i=8;i>0;i--)    //ÔÚ15~60usÖ®¼ä¶ÔÊý¾ÝÏß½øÐÐ²ÉÑù£¬Èç¹ûÊÇ¸ßµçÆ½¾ÍÐ´1£¬µÍÐ´0·¢Éú¡£ 
- 524   1        {
- 525   2          DQ=0;         //ÔÚ¿ªÊ¼ÁíÒ»¸öÐ´ÖÜÆÚÇ°±ØÐëÓÐ1usÒÔÉÏµÄ¸ßµçÆ½»Ö¸´ÆÚ¡£ 
- 526   2          DQ=dat&0x01; 
- 527   2          delay(5); 
- 528   2          DQ=1; 
- 529   2          dat>>=1;
- 530   2        } 
- 531   1        delay(4);
- 532   1      }
- 533          
- 534          //¶ÁÎÂ¶ÈÖµ£¨µÍÎ»·ÅtempL;¸ßÎ»·ÅtempH;£©
- 535          void ReadTemperature(void)  
- 536          { 
- 537   1        unsigned int t1;
- 538   1        unsigned char tempL=0;    //ÉèÈ«¾Ö±äÁ¿
- 539   1        unsigned char tempH=0; 
- 540   1        unsigned int sdata=0;     //²âÁ¿µ½µÄÎÂ¶ÈµÄÕûÊý²¿·Ö
- 541   1        unsigned char xiaoshu1;   //Ð¡ÊýµÚÒ»Î»
- 542   1        current_t = 0;//³õÊ¼»¯µ±Ç°ÎÂ¶È
- 543   1        
- 544   1        Init_DS18B20();           //³õÊ¼»¯
- 545   1        WriteOneChar(0xcc);         //Ìø¹ý¶ÁÐòÁÐºÅµÄ²Ù×÷
- 546   1        WriteOneChar(0x44);         //Æô¶¯ÎÂ¶È×ª»»
- 547   1        Delay400Ms();             //×ª»»ÐèÒªÒ»µãÊ±¼ä£¬ÑÓÊ± 
- 548   1        Delay400Ms();
- 549   1        Init_DS18B20();           //³õÊ¼»¯
-C51 COMPILER V9.57.0.0   LCD1602                                                           06/06/2018 20:32:35 PAGE 10  
+ 503          {
+ 504   1        unsigned char i=0;    //Ã¿¸ö¶ÁÖÜÆÚ×î¶ÌµÄ³ÖÐøÊ±¼äÎª60us£¬¸÷¸ö¶ÁÖÜÆÚÖ®¼ä±ØÐëÓÐ1usÒÔÉÏµÄ¸ßµçÆ½»Ö¸´ÆÚ
+ 505   1        unsigned char dat=0; 
+ 506   1        for (i=8;i>0;i--)     //Ò»¸ö×Ö½ÚÓÐ8Î» 
+ 507   1        {
+ 508   2          DQ=1; 
+ 509   2          delay(1); 
+ 510   2          DQ=0;
+ 511   2          dat>>=1; 
+ 512   2          DQ=1; 
+ 513   2          if(DQ) 
+ 514   2          dat|=0x80; 
+ 515   2          delay(4);
+ 516   2        } 
+ 517   1        return(dat);
+ 518   1      }
+ 519          
+ 520          //Ð´Ò»¸ö×Ö½Ú
+ 521          void WriteOneChar(unsigned char dat) 
+ 522          { 
+ 523   1        unsigned char i=0;    //Êý¾ÝÏß´Ó¸ßµçÆ½À­ÖÁµÍµçÆ½£¬²úÉúÐ´ÆðÊ¼ÐÅºÅ¡£15usÖ®ÄÚ½«ËùÐèÐ´µÄÎ»ËÍµ½Êý¾ÝÏßÉÏ£¬
+ 524   1        for(i=8;i>0;i--)    //ÔÚ15~60usÖ®¼ä¶ÔÊý¾ÝÏß½øÐÐ²ÉÑù£¬Èç¹ûÊÇ¸ßµçÆ½¾ÍÐ´1£¬µÍÐ´0·¢Éú¡£ 
+ 525   1        {
+ 526   2          DQ=0;         //ÔÚ¿ªÊ¼ÁíÒ»¸öÐ´ÖÜÆÚÇ°±ØÐëÓÐ1usÒÔÉÏµÄ¸ßµçÆ½»Ö¸´ÆÚ¡£ 
+ 527   2          DQ=dat&0x01; 
+ 528   2          delay(5); 
+ 529   2          DQ=1; 
+ 530   2          dat>>=1;
+ 531   2        } 
+ 532   1        delay(4);
+ 533   1      }
+ 534          
+ 535          //¶ÁÎÂ¶ÈÖµ£¨µÍÎ»·ÅtempL;¸ßÎ»·ÅtempH;£©
+ 536          void ReadTemperature(void)  
+ 537          { 
+ 538   1        unsigned int t1;
+ 539   1        unsigned char tempL=0;    //ÉèÈ«¾Ö±äÁ¿
+ 540   1        unsigned char tempH=0; 
+ 541   1        unsigned int sdata=0;     //²âÁ¿µ½µÄÎÂ¶ÈµÄÕûÊý²¿·Ö
+ 542   1        unsigned char xiaoshu1;   //Ð¡ÊýµÚÒ»Î»
+ 543   1        current_t = 0;//³õÊ¼»¯µ±Ç°ÎÂ¶È
+ 544   1        
+ 545   1        Init_DS18B20();           //³õÊ¼»¯
+ 546   1        WriteOneChar(0xcc);         //Ìø¹ý¶ÁÐòÁÐºÅµÄ²Ù×÷
+ 547   1        WriteOneChar(0x44);         //Æô¶¯ÎÂ¶È×ª»»
+ 548   1        Delay400Ms();             //×ª»»ÐèÒªÒ»µãÊ±¼ä£¬ÑÓÊ± 
+ 549   1        Delay400Ms();
+C51 COMPILER V9.57.0.0   LCD1602                                                           06/08/2018 22:08:07 PAGE 10  
 
- 550   1        WriteOneChar(0xcc);         //Ìø¹ý¶ÁÐòÁÐºÅµÄ²Ù×÷ 
- 551   1        WriteOneChar(0xbe);         //¶ÁÎÂ¶È¼Ä´æÆ÷£¨Í·Á½¸öÖµ·Ö±ðÎªÎÂ¶ÈµÄµÍÎ»ºÍ¸ßÎ»£© 
- 552   1        tempL=ReadOneChar();        //¶Á³öÎÂ¶ÈµÄµÍÎ»LSB
- 553   1        tempH=ReadOneChar();        //¶Á³öÎÂ¶ÈµÄ¸ßÎ»MSB 
- 554   1        //if(tempH>0x7f)              //×î¸ßÎ»Îª1Ê±ÎÂ¶ÈÊÇ¸º
- 555   1        //{
- 556   1          //tempL=~tempL;         //²¹Âë×ª»»£¬È¡·´¼ÓÒ»
- 557   1          //tempH=~tempH+1;       
- 558   1          //fg=0;                 //¶ÁÈ¡ÎÂ¶ÈÎª¸ºÊ±fg=0
- 559   1        //}else{
- 560   1          //fg=1;
- 561   1        //}
- 562   1        
- 563   1        //sdata = tempL/16+tempH*16;        //ÕûÊý²¿·Ö
- 564   1        //xiaoshu1 = (tempL&0x0f)*10/16;    //Ð¡ÊýµÚÒ»Î»
- 565   1        //current_t = (float)sdata+xiaoshu1*0.1;
- 566   1        
- 567   1        t1 = tempH;
- 568   1        t1 = t1<<8 | tempL;
- 569   1        if(tempH>0x7f){
- 570   2          t1 = ~t1+1;
- 571   2          fg = 0;
- 572   2        }else{
- 573   2          fg = 1;
- 574   2        }
- 575   1        current_t = t1*0.0625;
- 576   1        current_t = current_t*10+0.5;
- 577   1        current_t = current_t*0.1;
- 578   1      }
-*** WARNING C280 IN LINE 541 OF lcd1602.c: 'xiaoshu1': unreferenced local variable
- 579          /************************************DB18S20´¦Àí³ÌÐò*************************************/
- 580          
- 581          /************************************¹«¹²ÑÓÊ±³ÌÐò*************************************/
- 582          void delay(unsigned char i)//×Ô¶¨ÒåÑÓÊ±²ÎÊý
- 583          {
- 584   1        for(i;i>0;i--);
- 585   1      }
- 586          void Delay5Ms(void)//5msÑÓÊ±
- 587          {
- 588   1       unsigned int TempCyc = 5552;
- 589   1       while(TempCyc--);
- 590   1      }
- 591          void Delay400Ms(void)//400msÑÓÊ±
- 592          {
- 593   1       unsigned char TempCycA = 5;
- 594   1       unsigned int TempCycB;
- 595   1       while(TempCycA--)
- 596   1       {
- 597   2        TempCycB=7269;
- 598   2        while(TempCycB--);
- 599   2       }
- 600   1      }
- 601          /* Èí¼þÑÓÊ±º¯Êý£¬ÑÓÊ±Ê±¼ä(t*10)us */
- 602          void DelayX10us(unsigned char t){
- 603   1          do {
- 604   2              _nop_();//ÑÓÊ±Ò»¸ö»úÆ÷ÖÜÆÚ 12M¾§ÕñµÄ»° ¾ÍÊÇ1us Ö»ÊÇÎªÁË¸ü¾«È·µÄÑÓÊ±
- 605   2              _nop_();
+ 550   1        Init_DS18B20();           //³õÊ¼»¯
+ 551   1        WriteOneChar(0xcc);         //Ìø¹ý¶ÁÐòÁÐºÅµÄ²Ù×÷ 
+ 552   1        WriteOneChar(0xbe);         //¶ÁÎÂ¶È¼Ä´æÆ÷£¨Í·Á½¸öÖµ·Ö±ðÎªÎÂ¶ÈµÄµÍÎ»ºÍ¸ßÎ»£© 
+ 553   1        tempL=ReadOneChar();        //¶Á³öÎÂ¶ÈµÄµÍÎ»LSB
+ 554   1        tempH=ReadOneChar();        //¶Á³öÎÂ¶ÈµÄ¸ßÎ»MSB 
+ 555   1        //if(tempH>0x7f)              //×î¸ßÎ»Îª1Ê±ÎÂ¶ÈÊÇ¸º
+ 556   1        //{
+ 557   1          //tempL=~tempL;         //²¹Âë×ª»»£¬È¡·´¼ÓÒ»
+ 558   1          //tempH=~tempH+1;       
+ 559   1          //fg=0;                 //¶ÁÈ¡ÎÂ¶ÈÎª¸ºÊ±fg=0
+ 560   1        //}else{
+ 561   1          //fg=1;
+ 562   1        //}
+ 563   1        
+ 564   1        //sdata = tempL/16+tempH*16;        //ÕûÊý²¿·Ö
+ 565   1        //xiaoshu1 = (tempL&0x0f)*10/16;    //Ð¡ÊýµÚÒ»Î»
+ 566   1        //current_t = (float)sdata+xiaoshu1*0.1;
+ 567   1        
+ 568   1        t1 = tempH;
+ 569   1        t1 = t1<<8 | tempL;
+ 570   1        if(tempH>0x7f){
+ 571   2          t1 = ~t1+1;
+ 572   2          fg = 0;
+ 573   2        }else{
+ 574   2          fg = 1;
+ 575   2        }
+ 576   1        current_t = t1*0.0625;
+ 577   1        current_t = current_t*10+0.5;
+ 578   1        current_t = current_t*0.1;
+ 579   1      }
+*** WARNING C280 IN LINE 542 OF lcd1602.c: 'xiaoshu1': unreferenced local variable
+ 580          /************************************DB18S20´¦Àí³ÌÐò*************************************/
+ 581          
+ 582          /************************************¹«¹²ÑÓÊ±³ÌÐò*************************************/
+ 583          void delay(unsigned char i)//×Ô¶¨ÒåÑÓÊ±²ÎÊý
+ 584          {
+ 585   1        for(i;i>0;i--);
+ 586   1      }
+ 587          void Delay5Ms(void)//5msÑÓÊ±
+ 588          {
+ 589   1       unsigned int TempCyc = 5552;
+ 590   1       while(TempCyc--);
+ 591   1      }
+ 592          void Delay400Ms(void)//400msÑÓÊ±
+ 593          {
+ 594   1       unsigned char TempCycA = 5;
+ 595   1       unsigned int TempCycB;
+ 596   1       while(TempCycA--)
+ 597   1       {
+ 598   2        TempCycB=7269;
+ 599   2        while(TempCycB--);
+ 600   2       }
+ 601   1      }
+ 602          /* Èí¼þÑÓÊ±º¯Êý£¬ÑÓÊ±Ê±¼ä(t*10)us */
+ 603          void DelayX10us(unsigned char t){
+ 604   1          do {
+ 605   2              _nop_();//ÑÓÊ±Ò»¸ö»úÆ÷ÖÜÆÚ 12M¾§ÕñµÄ»° ¾ÍÊÇ1us Ö»ÊÇÎªÁË¸ü¾«È·µÄÑÓÊ±
  606   2              _nop_();
  607   2              _nop_();
  608   2              _nop_();
  609   2              _nop_();
  610   2              _nop_();
-C51 COMPILER V9.57.0.0   LCD1602                                                           06/06/2018 20:32:35 PAGE 11  
+C51 COMPILER V9.57.0.0   LCD1602                                                           06/08/2018 22:08:07 PAGE 11  
 
  611   2              _nop_();
- 612   2          } while (--t);
- 613   1      }
- 614          /************************************¹«¹²ÑÓÊ±³ÌÐò*************************************/
+ 612   2              _nop_();
+ 613   2          } while (--t);
+ 614   1      }
+ 615          /************************************¹«¹²ÑÓÊ±³ÌÐò*************************************/
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   2185    ----
+   CODE SIZE        =   2219    ----
    CONSTANT SIZE    =    195    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

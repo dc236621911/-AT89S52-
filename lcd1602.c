@@ -17,7 +17,7 @@ void DisplayListChar(unsigned char X, unsigned char Y, unsigned char code *DData
 
 /************************************温度显示*************************************/
 float upper_t = 40.0;//默认温度上限
-float lower_t = 20.0;//默认温度下限
+float lower_t = 15.0;//默认温度下限
 float current_t = 0;//当前温度
 
 void Display_c(unsigned char Y);//显示温度单位
@@ -86,23 +86,23 @@ void main(void)
 			
 			if(current_t<lower_t)//温度低于设定温度下限
 			{
-				while(current_t<lower_t){
+				while(1){
 					F = 0;
 					LED = 0;
-					Delay400Ms();
 					Delay400Ms();
 					Delay400Ms();
 					F = 1;
 					LED = 1;
 					Delay400Ms();
 					Delay400Ms();
-					Delay400Ms();
 					ReadTemperature();//读取温度值
 					Display_float(10,1,current_t);//显示当前温度
 					Display_c(1);//显示温度单位
+					if(current_t<lower_t)
+						break;
 				}
 			}else if(current_t > upper_t){//高于温度上限
-				while(current_t > upper_t){
+				while(1){
 					F = 0;
 					LED = 0;
 					Delay400Ms();
@@ -120,6 +120,8 @@ void main(void)
 					ReadTemperature();//读取温度值
 					Display_float(10,1,current_t);//显示当前温度
 					Display_c(1);//显示温度单位
+					if(current_t > upper_t)
+						break;
 				}
 			}else{
 				Delay400Ms();
@@ -438,12 +440,11 @@ void keyboard(void)//键盘处理程序
 					input_value = input_value + key_value * 0.1;//小数位数据
 					Display_float(10,0,input_value);
 					Display_c(0);
-				}else{
-					if(input_value >= 10){
+				}else if(input_value >= 10 && input_value < 100){
 						input_value = input_value + key_value;//个位数据
 						DisplayOneChar(10,0,input_value/10+0x30);
-						DisplayOneChar(11,0,key_value+0x30);
-					}else{
+						DisplayOneChar(11,0,(int)input_value%10+0x30);
+				}else{
 						DisplayListChar(0,0,"Temp Set Err!");
 						DisplayListChar(0,1,"Temp Is Default");
 						input_value = 0;
@@ -451,7 +452,6 @@ void keyboard(void)//键盘处理程序
 						L = 0;
 						X = 0;
 						OK = 0;
-					}					
 				}
 			}
 			break;
